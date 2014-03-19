@@ -1,0 +1,18 @@
+#include <stdio.h>
+代码：
+int main(int argc, char *argv[])
+{
+        printf("\u7890\n");
+        return 0;
+}
+运行结果：
+$ ./a.out 
+碐
+功能：
+       \NNN   byte with octal value NNN (1 to 3 digits)
+       \xHH   byte with hexadecimal value HH (1 to 2 digits)
+       \uHHHH Unicode (ISO/IEC 10646) character with hex value HHHH (4 digits)
+       \UHHHHHHHH
+              Unicode character with hex value HHHHHHHH (8 digits)
+按上述我格式打印Unicode字符
+====================================

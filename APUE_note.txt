@@ -1,0 +1,29 @@
+信号：
+kill(2)命令将信号发送给另一个进程或者进程组，但是也有限制，接收西信号进程和发送信号进程所有者必须相同，或者发送信号的所有者必须是超级用户。
+SIGKILL和SIGSTOP不能忽略，也不能捕捉，他们向超级用户提供了使进程终止和停止的可靠方法。
+SIG_IGN:signal ignore 忽略
+SIG_DFL:signal default 默认动作
+signal handler 信号处理程序
+signal-catching function 信号捕捉函数
+exec函数将原先设置要捕捉的信号，都更改为所在进程默认的设置，其他信号不变。
+（因为当执行一个新程序后，信号不捕捉函数的地址，在新程序当中可能是无意义的）
+======================
+名词解释：
+USU：usually 通常
+emulator trap 仿真器陷入
+profiling interval timer 梗概统计间隔计时器
+segmentation violation 段违例
+signal set 信号集
+======================
+编程技巧：
+  1 #include <stdio.h>
+  2 
+  3 #define result(set) (*(set) = 0, 1)
+  4 
+  5 int main(int argc, char *argv[])
+  6 {
+  7         int set;
+  8         fprintf(stdout, "result:%d\n", result(&set));
+  9         return 0;
+ 10 }
+可以用逗号表达式，构造宏定义函数的方法，如第3行所示，改函数的返回值将等于1,如果不加逗号后边的部分，则返回值，等于该赋值语句的值。

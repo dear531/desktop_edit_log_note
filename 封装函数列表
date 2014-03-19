@@ -1,0 +1,17 @@
+/home/zly/share/test/socket_programming:bit_check.c  bit_check.h
+打印内存bit位函数
+extern inline void bit_check(void *num, int mod);
+
+/home/zly/share/test/set_nonblock:pinfo.h
+打印函数当前的详细信息 和 出错信息的函数
+#define pcinfo()
+inline void peinfo(void)
+
+/home/zly/share/test/set_nonblock:setnonblocking.c
+设置文件描述符非阻塞模式的函数
+void setnonblocking(int fd)
+注意：本函数出错时的打印信息引用上一个pinfo.h文件里的打印信息函数
+
+计算子网最大最小主机范围的方法，最好也单独实现之后，封装成函数
+
+

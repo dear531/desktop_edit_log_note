@@ -1,0 +1,58 @@
+menset函数部分典型描述
+The memset() function fills the first n bytes of the memory area pointed to by s with the constant byte c.
+
+
+fill：填充，装满，胖胀
+first：起初；首先；第一
+constant：n.常数；adj.不变的；恒定的；经常的
+with：prep. 用；随着；支持；和…在一起
+
+int socket(int domain, int type, int protocol);
+The protocol specifies a particular protocol to be used with the socket.
+这个protocol给要使用的socket指定个特定的协议
+
+to be used with
+要使用
+
+例句:
+1.
+This example is designed to be used with windows forms. 
+此示例是针对使用windows窗体而设计的。
+
+=======================================
+strlcpy函数描述
+STRLCPY(9)                                                Basic C Library Functions                                               STRLCPY(9)
+
+NAME
+       strlcpy - Copy a NUL terminated string into a sized buffer
+
+SYNOPSIS
+       size_t strlcpy(char * dest, const char * src, size_t size);
+
+ARGUMENTS
+       dest
+           Where to copy the string to
+
+       src
+           Where to copy the string from
+
+       size
+           size of destination buffer
+
+BSD
+       the result is always a valid NUL-terminated string that fits in the buffer (unless, of course, the buffer size is zero). It does not
+       pad out the result like strncpy does.
+
+COPYRIGHT
+Kernel Hackers Manual 3.5.                                       April 2013                                                       STRLCPY(9)
+ Manual page strlcpy(9) line 1/26 (END) (press h for help or q to quit)
+========================================
+       inet_pton() returns 1 on success (network address was successfully converted).  0 is returned if src does  not  contain  a  character
+       string  representing  a  valid network address in the specified address family.  If af does not contain a valid address family, -1 is
+       returned and errno is set to EAFNOSUPPORT.
+
+$man inet_aton
+reutrnvalue
+If the input is invalid, INADDR_NONE (usually -1) is returned.
+
+

@@ -1,0 +1,3 @@
+grep -C number pattern files ：匹配的上下文分别显示[number]行
+grep -A number pattern files ：匹配的上文分别显示[number]行
+grep -B number pattern files ：匹配的下文分别显示[number]行

@@ -1,0 +1,50 @@
+  1 #include <stdio.h>
+  2 #include <setjmp.h>
+  3 
+  4 jmp_buf j;
+  5 int func_jmp(void)
+  6 {
+  7         fprintf(stdout, "is func_jmp before long_jpm\n");
+  8         longjmp(j,2);
+  9         fprintf(stdout, "is func_jmp before long_jpm, just never app\n");
+ 10         return -1;
+ 11 }
+ 12 int main(int argc, char *argv[])
+ 13 {
+ 14         int ret;
+ 15         if ((ret  = setjmp(j)) == 0)
+ 16         {
+ 17                 /* usuly execute */
+ 18                 fprintf(stdout, "ret:%d\n", ret);
+ 19                 fprintf(stdout, "I am main lien before func_jmp\n");
+ 20                 ret = func_jmp();
+ 21                 fprintf(stdout, "I'm is func_jmp result ret:%d\n", ret);
+ 22                 fprintf(stdout, "I am main lien after func_jmp, just never app\n");
+ 23         }
+ 24         else
+ 25         {
+ 26                 /* longjmp return */
+ 27                 fprintf(stdout, "ret:%d\n", ret);
+ 28                 fprintf(stdout, "I'm main line longjmp return nonzero\n");
+ 29         }
+ 30         return 0;
+ 31 }
+
+程序进程是这样执行的：
+main函数进入函数：
+到第15行执行ret  = setjmp(j)，对第4行开始的函数内容进行压栈，压栈不执行代码，只保存数据
+  4 jmp_buf j;
+  5 int func_jmp(void)
+  6 {
+  7         fprintf(stdout, "is func_jmp before long_jpm\n");
+  8         longjmp(j,2);
+  9         fprintf(stdout, "is func_jmp before long_jpm, just never app\n");
+ 10         return -1;
+ 11 }
+之后setjmp压栈结果返回0。
+程序向下进行到进入第20行，进入func_jmp函数
+ 20                 ret = func_jmp();
+调用过程和普通函数无异，执行到第8行，则跳转回主函数先前压栈的地方，即setjmp函数，并将longjmp的返回值作为返回值返回。
+ 8         longjmp(j,2);
+注意，由longjmp返回的值永远是非负的，即便是设置0,返回时也会被系统设置成1,这样做可以防止死循环发生。设置0也返回1,已经经由程序验证过。
+注意，不设置long进行返回，做异常处理，那么func_jmp就正常退出，即和一般的函数的正常返回，可以设置返回值等，都能正常完成，已经由代码测试过，是可以的。

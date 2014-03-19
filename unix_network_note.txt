@@ -1,0 +1,343 @@
+tcp protocol prot 13 get time service
+$ nc -nvv 129.6.15.28 13
+Connection to 129.6.15.28 13 port [tcp/*] succeeded!
+
+56715 14-02-27 08:08:02 00 0 0 842.1 UTC(NIST) * 
+===============================
+函数及其返回值：
+/***************/
+bzero() 与 memset()区别：memset容易将后两个参数设置位置颠倒，并且编译器检查不出这个数据类型有混淆，因为这两个参数的数据类型一致。
+/***************/
+int inet_pton(int af, const char *src, void *dst);
+RETURN VALUE
+       inet_pton() returns 1 on success (network address was successfully converted).  0 is returned if src does  not  contain  a  character
+       string  representing  a  valid network address in the specified address family.  If af does not contain a valid address family, -1 is
+       returned and errno is set to EAFNOSUPPORT.
+当正确转换，返回1；src所转换的字符串，不对应指定家族协议格式时，返回0;当af指定的协议不在协议族中时，返回-1，并设置errno。
+
+===============================
+注意：
+切记在给servaddr.sin_port变量赋值时，一定要关注好该变量的字节数，以便用对主机字节序转网络自节序函数，如若不然，转后后的字节序将发生位置错误，而导致无法赋值正确。
+struct sockaddr_in servaddr;
+servaddr.sin_family = AF_INET;
+servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+servaddr.sin_port = htons(SERVERPROT);//一定要用htons返回值为short类型的函数，给表示端口的成员赋值。
+/***************/
+for (mod = mod * 8 - 1;mod >= 0;mod--)
+	printf("%d", num & (1 << mod) ? 1 : 0);//获得比特位值的时，一定要用1位移之后，再与上所要获得比特位的的数值，即num & (1 << mod)，切记不要忘记取的是将1位移：num & mod。
+/***************/
+void bcopy(const void *src, void *dest, size_t n);
+example:
+bcopy(src, dest, strlen(src) + 1); //拷贝字符串时一定要取字符串的长度+1，以保证'\0'也能顺利的被拷贝进目的字符串
+/***************/
+inet_ntop系列函数中有三种变量：in_addr_t、struct in_addr和char *。
+其中in_addr_t为结构体struct in_addr的成员，所以无论用到哪个函数，只要定义struct in_addr这样的一个结构体，就可在相应的参数位置上，按参数类型，填写定义的结构体变量名或是取结构体成员变量名就可。
+typedef uint32_t in_addr_t;
+
+struct in_addr {
+	in_addr_t s_addr;
+};
+/***************/
+三者定义：
+int inet_aton(const char *cp, struct in_addr *inp);
+in_addr_t inet_addr(const char *cp);
+in_addr_t inet_network(const char *cp);
+255.255.255.255最后的返回值与-1的值相等，无法分辨是255.255.255.255转换后的返回值，还是设置的错误值，所以，inet_addr、inet_network这两个函数不能处理255.255.255.255这个IP地址的返回结果，也请不要用这两个函数处理相应的IP。
+inet_addr已经被废弃，请不要在用了，请用inet_aton。
+三者区别：
+inet_addr和inet_network函数都是用于将字符串形式转换为整数形式用的，两者区别很小，inet_addr返回的整数形式是网 络字节序，而inet_network返回的整数形式是主机字节序。（你一定会纳闷，为什么函数叫inet_network，却返回的是主机字节序，呵 呵，就是这么奇怪，你又有什么办法呢…）其他地方两者并无二异。他俩都有一个小缺陷，那就是当IP是255.255.255.255时，这两个“小子” （对这两个函数的昵称，请谅解…^_^）会认为这是个无效的IP地址，这是历史遗留问题，其实在目前大部分的路由器上，这个 255.255.255.255的IP都是有效的。
+inet_aton函数和上面这俩小子的区别就是在于他认为255.255.255.255是有效的，他不会冤枉这个看似特殊的IP地址。
+/***************/
+int inet_pton(int af, const char *src, void *dst);
+返回1,说明成功，返回0,按照af提供的格式，未能找到src对应的格式，返回-1,说明未能找到af对应的地址族。
+/***************/
+原型：
+int socket(int domain, int type, int protocol);
+tcp的设置，最后一个参数protocol可用宏IPPROTO_TCP或者设置数字0,请查看man 7 ip查看具体解释，或查找udp相关宏设置。
+socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)
+/***************/
+unix网络编程86页提供了一个，可以获得系统环境变量设置listen监听最大值的编程方法
+/***************/
+exec系列函数，在错误时，返回-1并设置errno，如果正确，就不返回，直接执行子进程，执行子进程规则了，父进程继续执行。
+exit()函数可直接从子函数当中将整个程序退出，也就是说，可以在子函数当中遇到错误情况，而使程序无法向下进行的时候，调用此函数，即可退出进程，而并不用回到主程序当中退出。
+fork();wait()
+wait(status)函数，通过WIFEXITED(status)宏函数取得子进程的结束状态，正常结束返回1,非正常返回0,通过WEXITSTATUS(status)宏函数取得子进程结束的返回值。
+/***************/
+vfor()子进程退出时，只能用exit函数退出，不能用正常的return函数退出，会出现执行错误！
+/***************/
+while((pid = waitpid(-1, &stat, WNOHANG)) > 0) {
+    printf("child %d exit\n", pid);
+}
+/***************/
+struct sockaddr转struct sockaddr_in结构体并取其中成员变量值的方法：
+取结构体地址后进行指针地址类型转换后，按指向结构体指针取成员变量
+((struct sockaddr_in*)&ss)->sin_addr
+此方法在getsockname、getpeername函数中用到了，用通用的结构体，保存ipv4类型的结构体数据。
+/***************/
+在如上的并发服务器模型中，切记，服务器一定要在子进程中退出！
+/***************/
+^D标准输入的终止键组合，即标准输入下终止组合键<ctrl+D>表示的标准输入EOF
+也是作为终端输入的exit快捷键命令
+SIGKILL和SIGSTOP不能被捕获
+socket传输数据的方法：
+1.把所有的数值数据作为文本串传递，要求客户和服务器有相同的字符集。
+2.显式定义所支持的数据类型的二进制格式（位数、大小端自序），并以这样的格式在客户和服务器之间传递所有数据，RPC软件包通常使用这种技术。
+/***************/
+每个线程只有一个errno。
+/***************/
+信号不会排队：信号只是一个进程拥有的结构体的相应的bit标志位
+当用以下程序处理子进程结束时，会遇到这样的问题：当服务器和客户端均为并发时，可能因为许多字进程同时结束，发送多个终止信号，而只被记录一次
+所以会导致回收僵死进程时，未被全部回收完毕
+signal(SIGCHLD, &func_waitpid);
+void func_waitpid(int signo) {
+    pid_t pid;
+    int stat;
+    pid = wait(&stat);
+    return;
+}
+
+正确处理函数应该是将wait函数换为waitpid函数，设置-1回收所有僵尸进程,设置WNOHANG当没有僵死子进程不阻塞，返回-1时证明没有僵死子进程了，程序退出。
+while((pid = waitpid(-1, &stat, WNOHANG)) > 0);
+
+linux下也有另一种让子进程结束，不让内核产生僵死子进程的做法：
+signal(SIGCHLD, SIG_IGN);
+在主进程中，用signal信号函数，设置SIGCHLD子进程信号为忽略SIG_IGN。注意，在其他如BSD等其他类型的unix系统中，不见得是这样的实现，比如BSD中设置忽略也是产生子进程的，也必须用wait回收子进程。
+/***************/
+wait()函数：
+当有为结束的子进程，函数等待并阻塞，如果没有子进程运行，且没等到任何子进程，则返回-1，有则返回pid。
+/***************/
+int kill(pid_t pid, int sig);函数四种情况：
+pid > 0;杀死为pid的进程
+pid == 0;杀死组进程，无论是子进程中还是父进程中调用，均将全部父子进程一并杀死。
+pid < 0;杀死进程绝对值为pid的进程组。
+pid == -1;
+与waitpid函数的四种情况类似
+===============================
+缩写：
+PDU protocol data unit协议传输单元，各层实体数据交换的单位信息
+SDU service data unit数据服务单元，下层传递
+SA struct sockaddr
+MSS maximum segment size最大分节大小（对端通告的）
+应用层（tcp）与传输层之间的借口属性
+MTU maximum transmission unit外出接口最大传输单元
+网络层与链路层之间的接口属性
+internet protocol 网际协议
+TCP transmission control protocol 传输控制协议
+UDP user datagram protocol 用户数据报协议
+LAN local area network 城域网
+WAN wide area network 广域网
+POSIX 与 API
+HTTP Hyperte transfer protocol超文本传输协议
+SMTP Simple mail transfer protocol简单文本传输协议
+PRC remote procedure call远程过程调用
+DNS domain name system域名系统
+listening descriptor 监听描述符
+connected descriptor 连接描述符
+tree-way handshake 三次握手
+ISO international organization for standardization 国际标准化组织
+OSI open system interconnection 计算机通信开放系统互联
+raw socket 原始套接字
+user process 用户进程
+CSRG computer system research group 计算机系统研究组
+AT&T American Telephone & Telegraph Company 美国电话电报公司
+berkeley-derived implementation 源自berkeley的实现
+VPN virtual private network 虚拟专用网络
+SSH secure shell 安全shell
+lo:loopback 环回
+POSIX: Portable Operating System Interface 可移植操作系统接口
+IEEE Institute of Electrical and Electronics Engineers 电气和电子工程师协会
+austin CSRG:the austin common standards revision group austin公共标准修订组
+IEC: internation electrotechnical commission 国际电工委员会
+API:system application program interface 系统应用程序接口
+PII:protocol-independent interfaces
+DNI:detailed network interfaces详尽网络接口
+open group 开放团体
+OSF open software foundation 开放软件基金会
+XPG X/Open portability guide X/Open移植性指南
+x/open single unix specification X/Open单一Unix规范
+CDE common desktop environment 公共桌面环境
+XNS xerox network system
+IETF internet Engineering Task Force 因特网工程任务攻坚组
+SCTP Stream Control Transmission Protocol 流控制传输协议
+DLPI datalink provider interface 数据链路提供接口
+ICMP Internet Control Message Protocol 网际控制消息协议
+IGMP Internet Group Management Protocol 网际组管理协议
+ARP Address Resolution Protocol 地址解析协议
+RARP Reverse Address Resolution Protocol 反向地址解析协议，用于无盘节点引导
+RFC Request for Comments 请求评注
+RTT round-trip time ：tcp动态估算客户端与服务器之间的往返时间
+flow control 流量控制
+advertised window 通知窗口
+full-duplex 全双工
+long fat pipe 长胖管道
+active close 主动关闭
+passive close 被动关闭
+EOF end-of-file 文件结束符
+half-close 半关闭
+state transition diagram 状态转换图
+simultaneous open 同时打开
+simultaneous close 同时关闭
+little-endian 小端
+big-endian 大端
+MSB most significant bit 最高有效位
+LSB least significant bit 最低有效位
+host byte order 主机字节序
+network byte order 网络字节序
+htonl系列函数中，h：host，n：net，l：表示32位，s：表示16位
+octet 八位组
+inet_pton中p代表表达presentation，n代表数值numeric
+named pipe 有名管道
+first in first out 先进先出
+hard error 硬错误，服务器上没有对应端口的进程运行
+defensive programming 防御性编程
+destination unreachable 目的地址不可达
+soft error 软错误
+bound 绑定，表示捆绑成功后的状态
+arriving 到达，主机以外为视角
+received 接收，主机以内为视角
+incoming 和 inbound 外来
+outgoing 或 outbound 外出
+sending 或 sent 发送
+fudge factor 模糊因子
+WWW World Wide Web 万维网
+hacker 黑客
+IP spoofing ：ip欺骗
+denial of service 服务被拒绝
+calling process 调用进程 exec进程映像替换成的新子程序
+new program 新程序，新执行的程序为新程序
+itarative server 迭代服务器
+dispositon 处理
+action 行为
+signal handler 信号处理函数
+catching 捕获
+core image 核心影响，也就是内存影像
+delivering 递交
+zombie 僵死
+slow system call 慢系统调用
+software caused connection abort 软件引起的连接中断
+streams subsystem 流子系统
+server terminated prematurely 服务器过早终止
+connection reset by peer 对方复位连接错误
+FAQ：frequently asked question 经常问及的问题
+core dumping 内存内容倾泻
+XDR：External Data Representation 外部数据表示（标准）
+weak end system model 弱端系统模型
+generation 产生
+delivery 递送
+pending 未决
+signal mask 信号屏蔽字
+===============================
+翻译：
+segment 分节
+message 消息
+application data 应用数据
+program 程序
+process 进程
+chunk 块
+datagram 数据报
+fragmentation 分片
+frame 帧，数据链路层上传输
+fragmant 片段
+reassembly 重组
+tcp/ip协议进行的分片操作
+packet 分组，俗称包
+wrapper function 包裹函数
+encapsulating 封装
+connectionless 缺少连接的
+sequencing 排序
+assocition 关联
+message-oriented 面向消息
+passive open 被动打开
+active open 主动打开
+MSL maximum segment lifetime 最长分节生命期RFC建议两分钟。berkeley的实现传统上改用30秒的值
+hop limit 跳限，即ping命令上ttl显示的数字，最大值是255的8位字段
+host duplicate 迷途的重复分组
+wandering duplicate 漫游的重复分组
+incanrnation 化身 重新建立相同的服务器和客户端进程，后一个称为前一个的化身
+port number 端口号
+well-known port 众所周知的端口号（0-1023）
+TFTP trivial file transfer protocol 简化文件传输协议
+ephemeral port 临时端口，客户端使用，这些端口号通常由传输层协议自动赋值与客户。只要保证，端口好在客户端主机中唯一即可，传输协议的代码确保这种唯一性
+IANA internet Assigned Numbers Authority 因特网已分配数值权威机构
+registered port 已登记的端口（1024-49151）不受IANA控制，不过由IANA登记并提供他们的使用情况清单
+动态端口dynamic port 或 private port私用端口（49152-65535） IANA不管这些端口
+reserved port 保留端口，分配给众所周知的服务使用，必须以超级用户的特权启动
+socket pair 套接字对，是一个定义该链接的两个端的四元组：本地IP、本地tcp端口号、外地IP、外地tcp端口，而sctp使用的多宿ip不同，但端口相同
+套接字：标识每个端点的两个值：ip地址和端口号，通常称为一个套接字
+listening socket 监听套接字
+wirlcard 通配符
+connected socket已连接套接字
+jumbo payload 特大净负荷，为没有限制mtu的主机到主机的内部连接而设计的，可以将最大净负荷从16位表示长度扩大到32位，比如HIPPI
+path MTU 路径MTU
+packet too big 分组太大
+DF don't fragment 不分片 IPv6协议当中的标志位，不允许转发他们的路由器分片
+destination unreachable，fragmentation needed but DF bit set
+目的地不可达，需分片但DF已设置，当大于IPv6路由器分片时，就会产生这样一个ICMPv6报文
+minimum reasseembly buffer size 最小重组缓冲区大小，IPv4=576，IPv6=1500
+MSS 经常设置成MTU减去IP和TCP首部的固定长度。在以太网中使用IPv4的MSS值为1460，使用IPv6的MSS值为1440，两者tcp的首部均为20字节，但IPv4首部是20字节，IPv6首部是40字节。
+SO_SNDBUF设置tcp、UDP和SCTP缓冲区大小
+服务名称及其端口：
+echo 回射 7
+discard 丢弃 9
+daytime 时间获取 13 返回可读的时间和日期
+chargen 字符生成 19
+time 流逝时间获取 37 从1900年1月1日（UTC时间）以来的秒数
+ANSI：American National Standards Institute 美国国家标准学会
+casting 强制转换
+passing arg 2 of bind from incompatible pointer type
+把不兼容的指针类型传递给bind函数的第二个参数
+scoped address 地址范围
+scope 范围
+link-local address 链路局部地址
+interface index 接口索引
+value-result argment 值-结果参数
+STREAMS message 流消息
+fork 派生
+socket descriptor 套接字描述符
+===============================
+规则：
+只要一个unix函数中发生了错误，全局变量errno就被设置一个指明该错误的正值，函数本身则通常返回-1
+1460的MSS，以太网上ipv4的典型值
+piggybacking 捎带：确认伴随应答发送，通常在服务器处理请求并产生应答的时间少于200ms时发生；如果服务器耗时更长时间，譬如1s，那么我们将看到先是确认后是应答。
+相同的端口分配tcp和udp的同一服务器使用，例如tcp80和udp80都分给了web，尽管目前所有的服务器都用了单纯的tcp实现
+IPv4协议记录长度的16位记录的是ip数据段的总长度，而IPv6则变为了协议除头部以外携带的数据段的净负荷长度，而表示长度的两个版本中都是16位，所以在IPv4中数据的总长度是2^16=65535，而在IPv6中则是2^16+40(ip头长度）=65535+40=65575
+以太网最大MTU为1500字节
+IPv4最小MTU68字节
+===============================
+函数对比：
+snprintf能检查缓冲区大小，sprintf则不能
+gets、strcat和strcpy，最好是用fgets、strncat和strncpy
+更好的代替是strlcat和strlcpy
+存疑：
+没明白在socket中使用套接字地址结构的长度只有几百个字节，不必要用size_t
+见unix网络编程第一卷25页，没读懂部分
+size_t在32位系统上是32位，在64位系统上是64位
+socklen_t使用之前必须包含头文件：即包含使用socket函数时的头文件
+#include <sys/types.h>          /* See NOTES */
+#include <sys/socket.h>
+
+===============================
+专业术语：
+防弹
+回射
+===============================
+掌握的网络软件：
+netstat、ifconfig
+netstat -in
+Kernel Interface table
+查看设备借口名字及其统计信息
+
+
+netstat -rn
+kerner interface table
+内核 IP 路由表
+默认路由表ip地址
+
+MULTICAST 支持组播
+
+
+
+
+
+
+

@@ -1,4 +1,5 @@
 信号：
+======================
 kill(2)命令将信号发送给另一个进程或者进程组，但是也有限制，接收西信号进程和发送信号进程所有者必须相同，或者发送信号的所有者必须是超级用户。
 SIGKILL和SIGSTOP不能忽略，也不能捕捉，他们向超级用户提供了使进程终止和停止的可靠方法。
 SIG_IGN:signal ignore 忽略
@@ -14,6 +15,7 @@ emulator trap 仿真器陷入
 profiling interval timer 梗概统计间隔计时器
 segmentation violation 段违例
 signal set 信号集
+priority band 优先级段
 ======================
 编程技巧：
   1 #include <stdio.h>
@@ -27,3 +29,39 @@ signal set 信号集
   9         return 0;
  10 }
 可以用逗号表达式，构造宏定义函数的方法，如第3行所示，改函数的返回值将等于1,如果不加逗号后边的部分，则返回值，等于该赋值语句的值。
+======================
+sigpending()函数的用法：
+int sigpending(sigset_t *set);
+他是用来返回系统当前被堵塞的信号集，即系统当前有那些信号处于被阻塞的状态。
+即当用sigprocmask设置了系统的信号屏蔽码，而且设置后，有信号发生，则调用函数时，该信号的对应位会保存在set结构体中。
+而当设置了该信号的屏蔽码，但未产生该信号时，调用sigpending函数时，表示信号集的结构体的信号该位置不被设置。
+另外，此外，需要用到int sigismember(const sigset_t *set, int signum)函数，检测结构体的宏信号定义，以检查设置的结果。
+在github库的
+git@github.com:dear531/unix_network_programming_note.git
+有相应的
+add_del_mask.c
+当时按照自己思路写成的程序代码，可供参考。
+按照apue227页的程序思路写成的。
+======================
+在信号设置函数中，可以设置函数的处理行为，可在自定义的信号处理函数中，重新设置信号处理函数为默认方式。
+ 18 void sig_quit(int sinnum)
+ 19 {
+ 20         /* sigquit function */
+ 21         fprintf(stdout, "catch SIGQUIT\n");
+ 22         if (signal(SIGQUIT, SIG_DFL) == SIG_ERR)
+ 23                 sys_err("set signal sinquit to SIN_DFL\n");
+ 24         return;
+ 25 }
+======================
+sa_mask指定信号处理函数执行的过程中应被阻塞的信号。另外，除了SA_NODEFER标志被指定外，触发信号处理函数执行的那个信号也会被阻塞。
+//此说法需要验证，希望尽快出结论
+======================
+注意这个两个函数的使用，容易在设置屏蔽码的时候混淆：
+int sigemptyset(sigset_t *set);
+int sigfillset(sigset_t *set);
+当用sigemptyset函数设置set结构体能信号集全空时，如果用这个全空的信号集用作系统的屏蔽码，那么就意味着一切信号均不屏蔽。相反，如果全设置，即为均进行屏蔽。
+注意设置屏蔽码信号集与信号本身的关系，另，上述说的全部信号指有效信号，即不包括无法屏蔽和忽略的信号。kill和stop
+======================
+sleep函数如果被中断，则无论还有剩下多少时间，均不再继续执行，被信号打断，返回程序，执行sleep以下的代码。此种情况必须在信号的函数为自定义函数时实现，因为系统默认对信号处理的方式为杀死进程，无法看到sleep函数被信号打断的效果。
+unsigned int sleep(unsigned int seconds);
+======================

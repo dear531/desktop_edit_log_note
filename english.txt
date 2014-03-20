@@ -54,5 +54,15 @@ Kernel Hackers Manual 3.5.                                       April 2013     
 $man inet_aton
 reutrnvalue
 If the input is invalid, INADDR_NONE (usually -1) is returned.
+========================================
+On some architectures a union is involved: do not assign to both sa_handler and sa_sigaction.
 
+architectures 架构，建筑样式
+invoved 牵扯
+do not 不要
+both 两个
+The sa_restorer element is obsolete and should not be used.  POSIX does not specify a sa_restorer element.
+element 成员；元素
+obsolete 废弃
+not be used 不使用
 

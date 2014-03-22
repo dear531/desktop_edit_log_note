@@ -96,6 +96,12 @@ SA_NODEFER //当此标志为on时，在信号处理函数处置信号的时段�
 切记，信号处理函数的运行规则，他是在信号处理函数执行的过程中，新的信号处理函数将原有信号函数打断，并将现有信号处理函数压栈，并开始执行新的信号处理函数，当新信号处理完成时，还会回到先前压栈的信号函数执行处，继续执行返回一层的信号处理函数当中，继续执行，如同函数的递归过程一样，无论被打断多少层，均按照此规则执行，真是个美妙的设计。
 详见git@github.com:dear531/unix_network_programming_note.git中signal_execute_multicall_interrup_stack_show.c源代码实现过程。
 ======================
+说明下，用setjmp和longjmp函数结合信号处理函数时，信号屏蔽码的情况：
+如果用setjmp压栈，不用longjmp做异常跳转，而是正常从信号处理函数返回，那么返回的进程依旧保持原有的信号屏蔽码，即未进入信号屏蔽函数之前的情形。
+如果用用longjmp做异常处理，那么，跳转回函数，将保持没跳转之前的信号函数的屏蔽码，因为不是用正常的return或是exit函数做出栈处理。
+应该用sigsetjmp()和siglongjmp()函数进行入栈出栈设置。
+int sigsetjmp(sigjmp_buf env, int savesigs)相比较int setjmp(jmp_buf env)而言sigsetjmp比setjmp只多了一个保存信号集参数savesigs，设置0为不保存，设置非零为保存，在保存的情况下，在调用之前，sigsetjmp即已保存好进入信号处理函数的屏蔽码，siglongjmp跳出之后，恢复先前保存的信号屏蔽码集。
+======================
 一个函数的函数名，即为这个函数的地址指针。
 如：
   5 void sig_quit(int signum)

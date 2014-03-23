@@ -141,3 +141,50 @@ werase = ^W; lnext = ^V; flush = ^O; min = 1; time = 0;
 opost -olcuc -ocrnl onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0 ff0
 isig icanon iexten echo echoe echok -echonl -noflsh -xcase -tostop -echoprt echoctl echoke
 ======================
+signal.h中
+311 extern __const char *__const sys_siglist[_NSIG]
+定义了对信号的解释字符串，下标对应是信号的宏定义，字符串本身是宏的解释，就如同strerror(errno)打印出来的内容一样：
+sys_siglist[0]:(null)
+sys_siglist[1]:Hangup
+sys_siglist[2]:Interrupt
+sys_siglist[3]:Quit
+sys_siglist[4]:Illegal instruction
+sys_siglist[5]:Trace/breakpoint trap
+sys_siglist[6]:Aborted
+sys_siglist[7]:Bus error
+sys_siglist[8]:Floating point exception
+sys_siglist[9]:Killed
+sys_siglist[10]:User defined signal 1
+sys_siglist[11]:Segmentation fault
+sys_siglist[12]:User defined signal 2
+sys_siglist[13]:Broken pipe
+sys_siglist[14]:Alarm clock
+sys_siglist[15]:Terminated
+sys_siglist[16]:Stack fault
+sys_siglist[17]:Child exited
+sys_siglist[18]:Continued
+sys_siglist[19]:Stopped (signal)
+sys_siglist[20]:Stopped
+sys_siglist[21]:Stopped (tty input)
+sys_siglist[22]:Stopped (tty output)
+sys_siglist[23]:Urgent I/O condition
+sys_siglist[24]:CPU time limit exceeded
+sys_siglist[25]:File size limit exceeded
+sys_siglist[26]:Virtual timer expired
+sys_siglist[27]:Profiling timer expired
+sys_siglist[28]:Window changed
+sys_siglist[29]:I/O possible
+sys_siglist[30]:Power failure
+sys_siglist[31]:Bad system call
+======================
+#include <string.h>
+char *strsignal(int sig);
+extern const char * const sys_siglist[];
+strsignal用法如同strerror函数。
+======================
+#include <signal.h>
+void psignal(int sig, const char *s);
+void psiginfo(const siginfo_t *pinfo, const char *s);
+extern const char *const sys_siglist[]
+用法如同perror函数。
+======================

@@ -1,0 +1,10 @@
+显示git仓库中文件在哪个节点修改过：
+git log --pretty=oneline filename
+23308813693fc6cb8e01d83b6d9caa5f0ce40bec add mind of sigemptyset&sigfillset, return and interrupt from signal,way of use
+50ad80b07be1d899e3ea10d416cc1b0888672177 desktop edit log note
+或是直接
+$ git log --oneline english.txt
+2330881 add mind of sigemptyset&sigfillset, return and interrupt from signal,way of user define function to system defau
+50ad80b desktop edit log note
+
+

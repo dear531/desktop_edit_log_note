@@ -7,4 +7,12 @@ $ git log --oneline english.txt
 2330881 add mind of sigemptyset&sigfillset, return and interrupt from signal,way of user define function to system defau
 50ad80b desktop edit log note
 
+将提交者的信息同步修改，包括日期
+git commit --reset-author
 
+
+添加过滤文件：
+echo "*a.out" >> .git/.gitignore		/* 过滤掉所有目录下生成的a.out文件 */
+git config core.excludesfile .git/.gitignore 	/* 设置刚保存的配置文件的为过滤文件 */
+
+git config core.excludesfile			/* 不加配置名字是查看配置情况，所有配置情况均可以用这样的方法查看 */

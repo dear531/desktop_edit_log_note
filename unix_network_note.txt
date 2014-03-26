@@ -118,6 +118,66 @@ pid == -1;
 ===============================
 select中，如果select函数返回，那就用do-while循环前检测，返回肯定可读操作。加上合理的判断即可。
 ===============================
+select 多路I/O复用模型
+当select返回时，判断可读属性时，第一要判断是不是对端文件关闭，返回0值，再就是正好对端发正好是缓冲区大小，如果是用循环读取的，可能正好一次读完所有数据，下次在读数据而造成0数据无法返回，形成阻塞，解决这个问题有两个办法，一是，不循环读取数据，只在select返回时，读取一次，然后继续进行可读性检测设置，再就是利用非阻塞模式，读不到数据返回egain，做错误类型判断处理。
+/* fd--ready descriptor, n--number of descriptor */
+ 12 int str_cli(int *fd, int n)
+ 13 {
+ 14         int ret;
+ 15         int i;
+ 16         char buf[1024];
+ 17         int m;
+ 18         int prev;
+ 19         int count;
+ 20         for (i = 0; i < n; i++)
+ 21                 fprintf(stdout, "fd[%d]:%d\n", i, fd[i]);
+ 22         bzero(buf, 1024);
+ 23         prev = 0;
+ 24         for ( ; ; )
+ 25         {
+ 26                 fd_set rset;
+ 27                 FD_ZERO(&rset);
+ 28                 for (i = 0; i < n; i++)
+ 29                         FD_SET(fd[i], &rset);
+ 30 
+ 31                 ret = select(fd[n - 1] + 1, &rset, NULL, NULL, NULL);
+ 32 
+ 33                 count = 0;
+ 34                 for (i = 0; i < n; i++)
+ 35                 {
+ 36                         if (FD_ISSET(fd[i], &rset))
+ 37                         {
+ 38                                 do
+ 39                                 {
+ 40                                         m = recv(fd[i], buf, 1024, 0);
+ 41                                         if (m < 0)
+ 42                                                 fprintf(stdout, "recv error:%s\n", strerror(errno));
+ 43                                         else if (m == 0)
+ 44                                                 fprintf(stdout, "peer pointer cloese\n");
+ 45                                         if (m >= 0 && prev > m)
+ 46                                                 bzero(buf + m, prev - m);
+ 47                                         if (m >= 0 && prev != m)
+ 48                                                 prev = m;
+ 49                                         fprintf(stdout, "fd:%d, buf:%s", fd[i], buf);
+ 50                                 }while(m == 1024);
+ 51                                 if (++count == ret)
+ 52                                         break;
+ 53                         }
+ 54                 }
+ 55         }
+ 56         return 0;
+ 57 }
+===============================
+STDIN_FILENO的可读状态的可读性：
+实验过STDIN_FILENO，是不可检测可读属性的，设置之后，设置可读检测，但select对此宏不返回可读，无论是否向终端输入内容。倒是可以检测出可写属性。
+===============================
+nc工具使用：
+nc -l -p 8000		/* 绑定本地主机8000端口 */
+nc -nvv 127.0.0.1 8000	/* 连接127.0.0.1的8000端口，为tcp连接 */
+注：无论nc工具是作为服务器还是客户端，其能力均为可收可发，亦即可以发送数据给对方，也可收到对方的数据，并且为I/O复用模式。切记，模拟服务器时，不是回射功能。
+===============================
+close之后文件描述符，仍保持了原来的值，还是赋值为-1为好。
+===============================
 缩写：
 PDU protocol data unit协议传输单元，各层实体数据交换的单位信息
 SDU service data unit数据服务单元，下层传递

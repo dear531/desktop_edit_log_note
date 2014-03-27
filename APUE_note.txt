@@ -188,3 +188,5 @@ void psiginfo(const siginfo_t *pinfo, const char *s);
 extern const char *const sys_siglist[]
 用法如同perror函数。
 ======================
+用signal设置信号处理函数，是屏蔽掉捕捉到的该信号的。如信号处理是函数，是处理捕捉到SIGINT的处理函数，则在信号被捕捉处理时，处理函数是屏蔽掉SIGINT函数的。
+======================

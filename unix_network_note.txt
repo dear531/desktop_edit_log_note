@@ -422,6 +422,39 @@ MULTICAST 支持组播
 接收低水位标记(Receive Low Water Mark)，是接收缓冲区的一个限制标记，当接收缓冲区中的数据字节数达到此限制时，读操作可以返回数据（数据已准备好）。
     SO_RCVLOWAT选项可以用setsockopt(2)函数进行修改，缺省值为1（1个字节就可以读，亦即接收缓冲区中收到一个字节时select（）即可返回）。
     发送缓冲区类似，不过指的是发送缓冲区的字节空位数。
+===============================
+       int pselect(int nfds, fd_set *readfds, fd_set *writefds,
+                   fd_set *exceptfds, const struct timespec *timeout,
+                   const sigset_t *sigmask);
+此函数，sigmask选项设置要阻塞信号集，实验已经得到结论，如果产生信号，那么在此函数运行期间不作用任何效果，直到函数返回，屏蔽结束只有再由程序继续处理信号。现象就是，在将listen设置后的socket套接字加入可都文件描述符集当中，等待调用pselect的函数返回，当没有客户端连接，即当pselect不返回时，则信号对其不产生作用，而当客户端连接后，则立即提示服务器已关闭，而服务器这时候已经被杀死退出，此程序没做信号捕捉处理，执行了默认的信号处理过程。
+现象过程如下：
+服务器未连接时的pselect表现，阻塞在pselect函数，对信号sigint信号进行了阻塞：
+若干信号阻塞之后，取消阻塞之后，马上对进程产生了作用
+$ ./a.out 
+before pselect
+^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C
+当客户端进行连接之后，瞬间表现：
+很显然，服务器直接退出了
+$ nc -nvv 127.0.0.1 8000
+nc: connect to 127.0.0.1 port 8000 (tcp) failed: Connection reset by peer
+
+以下是正常连接并断开，有客户端先关闭连接的过程：
+服务器：
+$ ./a.out 
+before pselect
+after pselect
+check avalable connfd:4
+received buf :fda
+
+peer close		/* 此处服务器做了读取为0时的客户端状态判断处理的消息打印 */
+客户端：
+$ nc -nvv 127.0.0.1 8000
+Connection to 127.0.0.1 8000 port [tcp/*] succeeded!
+fda
+fda
+^C
+===============================
+
 
 
 

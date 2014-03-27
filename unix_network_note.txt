@@ -182,6 +182,9 @@ listen返回的文件描述符，其状态是否可读，表示的是否有新�
 如果有select函数检查有新用户连接，则调用accpet函数进行连接新用户。
 用数字保存连接的返回值时，最大有效描述符数量由accept新建连接决定，最小数量由关闭文件描述符决定，所以，最大描述符一定要检查这两处变化。
 ===============================
+socket、bind、listen、accpet，用select函数连接时的返回情况：
+socket和bind建立之初就即为可读，即可进行后续操作，listen当用户连接时才有数据可读，才返回；accept建立的是连接描述符，只有当有用户写数据时才可读。
+===============================
 缩写：
 PDU protocol data unit协议传输单元，各层实体数据交换的单位信息
 SDU service data unit数据服务单元，下层传递
@@ -302,7 +305,7 @@ signal-driven I/O 信号驱动I/O
 asynchronous I/O 异步I/O
 synchronous I/O 同步I/O
 Receive Low Water Mar 接收低水位标记
-
+denial of service 拒绝服务（型的攻击）
 ===============================
 翻译：
 segment 分节

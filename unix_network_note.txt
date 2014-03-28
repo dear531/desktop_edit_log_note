@@ -112,6 +112,28 @@ pid == 0;杀死组进程，无论是子进程中还是父进程中调用，均�
 pid < 0;杀死进程绝对值为pid的进程组。
 pid == -1;
 与waitpid函数的四种情况类似
+/***************/
+poll函数用法
+int poll(struct pollfd *fds, nfds_t nfds, int timeout);
+一定要加括号啊：
+ 90                         if (!(fds[i].revents & POLLIN))
+ 91                                 continue;
+
+(fds[i].revents & POLLIN) == 0 :0
+fds[i].revents & POLLIN == 0 :0
+fd 1 recv size 9 buf :fdsafkds
+
+(fds[i].revents & POLLIN) == 0 :1
+fds[i].revents & POLLIN == 0 :0
+(fds[i].revents & POLLIN) == 0 :0
+fds[i].revents & POLLIN == 0 :0
+fd 2 recv size 12 buf :fdjsafjdksa
+
+(fds[i].revents & POLLIN) == 0 :1
+fds[i].revents & POLLIN == 0 :0
+(fds[i].revents & POLLIN) == 0 :0
+fds[i].revents & POLLIN == 0 :0
+
 ===============================
 主进程多进程fork的形式，接受打开产生的网络套接字描述符，只要及时关闭，就能及时清理资源，并能接受新连接。即主程序接受新连接后，让子进程处理对应网络连接，而主进程关闭子进程已经连接的文件描述符。
 事实上，listen函数文件描述符指定的总数，没有精确的定义。posix也未定义。
@@ -306,6 +328,10 @@ asynchronous I/O 异步I/O
 synchronous I/O 同步I/O
 Receive Low Water Mar 接收低水位标记
 denial of service 拒绝服务（型的攻击）
+normal 普通
+priority band 优先级带
+high priority 高优先级
+indeterminate 不确定
 ===============================
 翻译：
 segment 分节
@@ -454,6 +480,8 @@ fda
 fda
 ^C
 ===============================
+注意：for循环当中，如果用break语句结束循环，最后的计数器i++是不执行的；
+如果用continue是执行的。
 
 
 

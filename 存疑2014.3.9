@@ -15,4 +15,5 @@ SO_KEEPALIVE套接字
 研究下static volatile sig_atomic canjump；这种变量类型
 ctags 生成头文件跳转的方法
 约瑟夫环
-
+大并发
+收发缓冲区的大小设置，当epoll函数作为发送数据时，找到个解释说，发端数据将缓冲区装满，并相应描述符为非阻塞返回EAGAIN错误时，epoll才重新检测socket是否可写，感觉不是很好控制。

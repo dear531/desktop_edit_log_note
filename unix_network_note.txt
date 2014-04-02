@@ -140,6 +140,12 @@ ET模式读缓冲区的触发条件，接受缓冲区接收到数据的时候触
 /***************/
 设置服务器缓冲区大小一定要在listen之前设置，新连接的文件描述符的窗口大小，都是从listen继承而来的。对于客户端要在connect之前。
 tcp套接字缓冲区大小至少是MSS的4倍，是依据tcp快速回复算法工作的机制得出的结论。
+/***************/
+setsockopt设置网络参数时序：
+设置发送和接受缓冲区大小时，一定要在listen之前完成设置，因为所有描述符的属性，都是由原来来描述符继承而来的。
+设置地址重用SO_REUSEADDR设置时，要在bind绑定之前设置其描述符属性。
+通配地址就是没有更好的地址可以选择，就选择和这个匹配的地址。INADDR_ANY,以这个通配地址启动的服务器程序，要最后一个启动，如果还有其他明确指定了ip绑定的服务器的话，防止完全重复捆绑。
+ip和端口均重复的捆绑，只限于udp协议。
 ===============================
 主进程多进程fork的形式，接受打开产生的网络套接字描述符，只要及时关闭，就能及时清理资源，并能接受新连接。即主程序接受新连接后，让子进程处理对应网络连接，而主进程关闭子进程已经连接的文件描述符。
 事实上，listen函数文件描述符指定的总数，没有精确的定义。posix也未定义。
@@ -212,7 +218,7 @@ listen返回的文件描述符，其状态是否可读，表示的是否有新�
 ===============================
 socket、bind、listen、accpet，用select函数连接时的返回情况：
 socket和bind建立之初就即为可读，即可进行后续操作，listen当用户连接时才有数据可读，才返回；accept建立的是连接描述符，只有当有用户写数据时才可读。
-
+设置
 ===============================
 缩写：
 PDU protocol data unit协议传输单元，各层实体数据交换的单位信息
@@ -413,6 +419,17 @@ STREAMS message 流消息
 fork 派生
 socket descriptor 套接字描述符
 application-level acknowledge 应用及确认
+bandwidth-delay product 宽带-延迟积
+long fat pipe 长管道
+inactivity timer 休止状态定时器
+absolute timer 绝对定时器
+completely duplicate binding 完全重复的捆绑
+internetwork control 网间控制
+network control 网内控制
+ancillary data 辅助数据
+pseudoheader 伪首部
+outstanding data 待确认数据，直译为未决数据
+delayed ACK algorithm ACK延滞算法
 ===============================
 规则：
 只要一个unix函数中发生了错误，全局变量errno就被设置一个指明该错误的正值，函数本身则通常返回-1

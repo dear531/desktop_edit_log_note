@@ -430,6 +430,15 @@ ancillary data 辅助数据
 pseudoheader 伪首部
 outstanding data 待确认数据，直译为未决数据
 delayed ACK algorithm ACK延滞算法
+adaption layer indication 适配层指示
+partial reliability 可靠性
+TSN transport sequence number 传输序号
+communication up 通信开始
+unconfirmed address 未证实地址
+retransmission timeout 重传超时
+maximum burst size 最大猝发大小
+current flight size 当前飞行大小
+maximum fragment size 最大片段大小
 ===============================
 规则：
 只要一个unix函数中发生了错误，全局变量errno就被设置一个指明该错误的正值，函数本身则通常返回-1

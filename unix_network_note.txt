@@ -358,6 +358,9 @@ ET :edge-triggered 边缘触发
 keep-alive probe 保持存活探测分节
 make-dead 切断
 heartbeat 心搏（机制）
+DNS 域名系统
+NFS 网络文件系统
+SNMP 简单网络管理协议
 ===============================
 翻译：
 segment 分节

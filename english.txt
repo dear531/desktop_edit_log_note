@@ -69,3 +69,6 @@ not be used 不使用
 If the file does not exist it will be created
 如果文件不存在他将创建。
 
+connection rather than initiate
+rather than:与其……
+

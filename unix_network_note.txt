@@ -358,6 +358,7 @@ ET :edge-triggered 边缘触发
 keep-alive probe 保持存活探测分节
 make-dead 切断
 heartbeat 心搏（机制）
+CRLF carriage return/line feed 回车换行
 ===============================
 翻译：
 segment 分节
@@ -529,6 +530,8 @@ fda
 ===============================
 注意：for循环当中，如果用break语句结束循环，最后的计数器i++是不执行的；
 如果用continue是执行的。
+
+
 
 
 

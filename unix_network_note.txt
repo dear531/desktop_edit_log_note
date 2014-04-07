@@ -1,3 +1,7 @@
+===============================
+对不明白的程序代码进行了这样的标注，以后有机会研究的时候好找，做标记
+/* understood */
+===============================
 tcp protocol prot 13 get time service
 $ nc -nvv 129.6.15.28 13
 Connection to 129.6.15.28 13 port [tcp/*] succeeded!
@@ -153,6 +157,44 @@ fcntl()
 设置阻塞模式为直接操作宏F_GETFL，切记不是F_SETFD。
 使用函数过程中，出现了偏差，当使用read函数和recv函数时，阻塞模式读取字符数量n在recv函数下返回了-1,并且errno被设置成了EAGAIN，而在read函数下则并未出现此效果，存疑以待日后研究。
 还有设置阻塞模式时，一定要在listen函数以后进行设置，如果listen是要阻塞的话，因为如果不阻塞等待，listen不阻塞就错误的返回了，他的非阻塞可读条件是当网络有用户连接时，才成为可读。
+/***************/
+udp
+upd服务器端想正确给每个客户端返回数据，就用recvfrom获得客户端的地址，然后再将获得的地址和端口结构体填写到发送函数当中去。
+udp服务器大都是迭代服务器，tcp服务器大都是并发服务器。
+服务器端，recvfrom的后两个参数 struct addr* 和 sock_len *相当于accapt的后两个参数，包括用法，都很类似。可以设置为空，不关注，len长度属于传入传出参数。
+而在客户端sendto后两个参数struct addr* 和 sock_len，相当与connect函数的后两个参数，不能为空，必须填写去处，而且表示长度的参数均为传入参数。
+当调用connect函数进行与远端进行连接的udp操作时netstat -apnu命令呈现这样的效果：
+udp        0      0 127.0.0.1:47675         127.0.0.1:8000          ESTABLISHED 14176/client
+而如果connect之前是这样的效果：
+udp        0      0 0.0.0.0:54835           0.0.0.0:*                           14160/client
+很显然，客户端程序在connect之后被分配了个固定的端口，而没分配之前是随机改变的。
+没连接之前和连接之后的效果，在程序上的表现：
+没connect之前：
+getsockname函数：load host addr:0.0.0.0, port:39582
+getpeername函数：peer host addr:255.127.0.0, port:63297	//请求的应该是个保留地址
+进行connect之后：
+getsockname函数：load host addr:127.0.0.1, port:44326
+getpeername函数：peer host addr:127.0.0.1, port:8000
+ip地址和端口都确定。
+
+connect 可以改变连接端口，重新设置地址进行连接：
+如果我们在程序中做如下的设置，让每次发送数据sleep一秒，前10次连接127.0.0.1，之后连接主机上的一个地址192.168.1.111，那么效果如下：
+用netstat命令显示udp所有程序，加一级管道只让带我们程序名称的显示出来
+
+前10次，connect127.0.0.1这个地址：
+$ netstat -apun |grep -E "server|client"
+（并非所有进程都能被检测到，所有非本用户的进程信息将不会显示，如果想看到所有信息，则必须切换到 root 用户）
+udp        0      0 0.0.0.0:8000            0.0.0.0:*                           6730/server     
+udp        0      0 127.0.0.1:42159         127.0.0.1:8000          ESTABLISHED 6746/client     
+后10次connect重新连接192.168.1.111后：
+udp        0      0 0.0.0.0:8000            0.0.0.0:*                           6730/server     
+udp        0      0 127.0.0.1:42159         192.168.1.111:8000      ESTABLISHED 6746/client
+ 
+tcp与udp描述端口的相关性：
+当setsockopt设置tcp时，如果有相同目的地址ip和端口udp需要连接，那么不用设置reuseaddr选项，udp和tcp是独立的。
+sento和recvfrom的协议相关性：
+sendto和recvfrom函数是与协议无关的函数，即无论是tcp或udp的ipv4还是ipv6,都不影响这个正常的发送和操作。
+
 
 ===============================
 主进程多进程fork的形式，接受打开产生的网络套接字描述符，只要及时关闭，就能及时清理资源，并能接受新连接。即主程序接受新连接后，让子进程处理对应网络连接，而主进程关闭子进程已经连接的文件描述符。
@@ -359,6 +401,9 @@ keep-alive probe 保持存活探测分节
 make-dead 切断
 heartbeat 心搏（机制）
 CRLF carriage return/line feed 回车换行
+weak end system model 弱端系统模型
+strong end system model 强端系统模型
+dropped due to full socket buffers 因套接字缓冲区满而丢弃
 ===============================
 翻译：
 segment 分节

@@ -74,3 +74,21 @@ rather than:而不是
 in this case
 如果是这样
 
+obsolete and instead 废弃和代替
+to by 由
+alias and official 别名和正式
+colon and dot 冒号和点号
+environment variable 环境变量
+take and give 取和给
+corresponding message string 相应的消息字符
+for backward compatibility 为了向后兼容
+table of contents 目录，内容列表
+TRY_AGAIN
+      A temporary error occurred on an authoritative name server.  Try again later.
+	暂时的错误发生，在一个有命令的名字服务上，稍后再试。
+does not suffice 不满足
+a deep copy is required 必须进行深拷贝。
+probably obtained via a call to inet_addr(3)
+很可能 获得 通过 一个 调用 inet_addr
+很可能会通过一个inet_addr调用获得。
+

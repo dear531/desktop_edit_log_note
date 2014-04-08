@@ -59,12 +59,7 @@ On some architectures a union is involved: do not assign to both sa_handler and 
 
 architectures 架构，建筑样式
 invoved 牵扯
-do not 不要
-both 两个
-The sa_restorer element is obsolete and should not be used.  POSIX does not specify a sa_restorer element.
-element 成员；元素
-obsolete 废弃
-not be used 不使用
+
 
 If the file does not exist it will be created
 如果文件不存在他将创建。
@@ -73,6 +68,9 @@ connection rather than initiate
 rather than:而不是
 in this case
 如果是这样
+later	['letɚ]稍后
+latter	['lætɚ]后来的
+little	['lɪtl]	一点
 
 obsolete and instead 废弃和代替
 to by 由
@@ -83,12 +81,38 @@ take and give 取和给
 corresponding message string 相应的消息字符
 for backward compatibility 为了向后兼容
 table of contents 目录，内容列表
-TRY_AGAIN
-      A temporary error occurred on an authoritative name server.  Try again later.
-	暂时的错误发生，在一个有命令的名字服务上，稍后再试。
+several reasons 数个推荐
+
+indicate 表明；指出
+instead 代替
+intend 想要
+instance 实例
+
+simple 简单的adj
+sample 样品
+similar 相似的adj
+
+decimal 十进制数字
+octet	八进制数字
+hex	十六进制数
+
+parameter 参数
+variable 变量
+
+
+A temporary error occurred on an authoritative name server.  Try again later.
+暂时的错误发生，在一个有命令的名字服务上，稍后再试。
 does not suffice 不满足
 a deep copy is required 必须进行深拷贝。
 probably obtained via a call to inet_addr(3)
 很可能 获得 通过 一个 调用 inet_addr
 很可能会通过一个inet_addr调用获得。
-
+but unlike the latter functions, getaddrinfo() is reentrant and allows programs to eliminate IPv4-versus-IPv6 dependencies.
+而 不同的 	后来的	函数	getaddrinfo	凹角的		和允许			清除	与……相对	依赖性。
+suppresses any potentially lengthy network host address lookups.
+抑制		潜在的；可能的 冗长漫长的		检查
+Either node or service, but not both, may be NULL.
+这两个值，不能都为空。
+man getaddrinfo：
+subject to any restrictions imposed by hints
+服从	任意的	限制；制约	利用

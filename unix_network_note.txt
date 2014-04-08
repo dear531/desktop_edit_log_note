@@ -241,6 +241,13 @@ gethostbyaddr通过主机ip地址，获得主机的信息，如下架构体，�
 /***************/
 对端口的操作永远是使用htons或ntohs的16位数字操作。端口是16位的，要不会出错位的问题。
 /***************/
+网络信息操作函数详情：
+信息	数据文件	结构	数值查找函数
+主机	/etc/hosts	hostent	gethostbyaddr gethostbyaddr
+网络	/ect/networks	netent	getnetbyaddr getnetbyname
+协议	/etc/protocols	protoent getprotobyname getprotobynumber
+服务	/etc/services	servnet	getservbyname getservbyport
+/***************/
 引用模型：
 /* 输入下标刚好等于参数个数-1,先做前缀自减操作，只不过这样一来就改变了argc的参数值，而且操作是把输入的个数从后往前开始做操作的，斟酌再用 */
 while(--argc > 0)
@@ -471,6 +478,9 @@ RR resource record 资源记录
 RTR pointer record 指针记录 把ip映射成主机名
 MX mail exchanger 邮件交换器
 CNAME canonical name 规范名字 例如www和ftp等
+A：A记录将主机名映射为32位的IPv4地址；
+AAAA：“四A”记录将主机名映射为128位的IPv6地址；
+PTR：PTR记录（称为“指针记录”）将IP地址映射为主机名；
 BIND Berkeley Internet Name Domain
 resolver 解析器
 link-editing 链编

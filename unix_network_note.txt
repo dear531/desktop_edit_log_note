@@ -478,7 +478,9 @@ NIS Network Infomation System 网络信息系统
 LDAP Lightweight Dirctory Access Protocol 轻权目录访问协议
 IRS infomation Retrival Sevice 信息检索服务
 official host正式主机名，相对于别名alias
-
+DNS 域名系统
+NFS 网络文件系统
+SNMP 简单网络管理协议
 ===============================
 翻译：
 segment 分节

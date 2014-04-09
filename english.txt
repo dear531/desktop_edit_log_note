@@ -110,9 +110,10 @@ probably obtained via a call to inet_addr(3)
 but unlike the latter functions, getaddrinfo() is reentrant and allows programs to eliminate IPv4-versus-IPv6 dependencies.
 而 不同的 	后来的	函数	getaddrinfo	凹角的		和允许			清除	与……相对	依赖性。
 suppresses any potentially lengthy network host address lookups.
-抑制		潜在的；可能的 冗长漫长的		检查
+废止		潜在的；可能的 冗长漫长的		检查
 Either node or service, but not both, may be NULL.
 这两个值，不能都为空。
 man getaddrinfo：
 subject to any restrictions imposed by hints
 服从	任意的	限制；制约	利用
+

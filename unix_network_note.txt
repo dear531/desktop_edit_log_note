@@ -262,6 +262,20 @@ while(--argc > 0)
  15         {
 		fprintf(stdout, "argv[j]:%s\n", j, argv[j]);
  45         }
+/***************/
+int getaddrinfo(const char *node, const char *service, const struct addrinfo *hints, struct addrinfo **res);
+        struct addrinfo {
+                int              ai_flags;
+                int              ai_family;
+                int              ai_socktype;
+                int              ai_protocol;
+                size_t           ai_addrlen;
+                struct sockaddr *ai_addr;
+                char            *ai_canonname;
+                struct addrinfo *ai_next;
+        };
+1.设置：hints->ai_flags |= AI_NUMERICHOST;对应域名设置必须为ip地址：node = "220.181.111.85"，防止任何类型地址到地址的映射;
+
 ===============================
 主进程多进程fork的形式，接受打开产生的网络套接字描述符，只要及时关闭，就能及时清理资源，并能接受新连接。即主程序接受新连接后，让子进程处理对应网络连接，而主进程关闭子进程已经连接的文件描述符。
 事实上，listen函数文件描述符指定的总数，没有精确的定义。posix也未定义。

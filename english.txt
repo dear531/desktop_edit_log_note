@@ -129,6 +129,11 @@ previous adj. 以前的；早先的；过早的adv. 在先；在…以前
 prevent vt. 预防，防止；阻止vi. 妨碍，阻止
 parent n. 父亲（或母亲）；父母亲；根源
 
+otherwise adv. 否则；另外；在其他方面 adj. 另外的；其他方面的
+
+supply n. 供给，补给；供应品；vt. 供给，提供；补充；vi. 供给；替代
+
+
 A temporary error occurred on an authoritative name server.  Try again later.
 暂时的错误发生，在一个有命令的名字服务上，稍后再试。
 does not suffice 不满足

@@ -99,6 +99,35 @@ hex	十六进制数
 parameter 参数
 variable 变量
 
+tend 照顾
+intend 想要
+
+present 提出；介绍；赠送vi；现在；礼物n
+represent 代表；再赠送vt；提出异议vi；
+respective adj. 分别的，各自的
+
+general 普通的；一般的；n；adj
+generic adj. 类的；一般的；属的；非商标的
+genarate 发生；vt
+
+inverse 相反；反转n;adj;vt
+convert 转换
+
+combine 结合vi;vt;联合企业；联合收割机n
+become 成为vi;vt
+
+eliminate 消除vi
+element 元素n
+implement 实施；执行；使生效vt；工具；手段n
+
+allow 允许；vi;vt
+allocate 分配vi;vt
+
+provide vt. 提供；规定；准备；装备vi. 规定；抚养；作准备
+private adj. 私人的；私有的；私下的
+previous adj. 以前的；早先的；过早的adv. 在先；在…以前
+prevent vt. 预防，防止；阻止vi. 妨碍，阻止
+parent n. 父亲（或母亲）；父母亲；根源
 
 A temporary error occurred on an authoritative name server.  Try again later.
 暂时的错误发生，在一个有命令的名字服务上，稍后再试。
@@ -116,4 +145,5 @@ Either node or service, but not both, may be NULL.
 man getaddrinfo：
 subject to any restrictions imposed by hints
 服从	任意的	限制；制约	利用
+
 

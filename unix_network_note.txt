@@ -275,7 +275,8 @@ int getaddrinfo(const char *node, const char *service, const struct addrinfo *hi
                 struct addrinfo *ai_next;
         };
 1.设置：hints->ai_flags |= AI_NUMERICHOST;对应域名设置必须为ip地址：node = "220.181.111.85"，防止任何类型地址到地址的映射;
-
+可以用inet_pton函数检查输入字符串是ipv4还是ipv6格式：
+inet_pton(AF_INET6, ipv4, &dest)和inet_pton(AF_INET, ipv6, &dest)时均会出错，正确时则能正确转换，这个技巧不但能用于区分ipv4和ipv6,也可用于对ipv4和ipv6字符串本身正确性的检查，如果格式错误，则返回。
 ===============================
 主进程多进程fork的形式，接受打开产生的网络套接字描述符，只要及时关闭，就能及时清理资源，并能接受新连接。即主程序接受新连接后，让子进程处理对应网络连接，而主进程关闭子进程已经连接的文件描述符。
 事实上，listen函数文件描述符指定的总数，没有精确的定义。posix也未定义。

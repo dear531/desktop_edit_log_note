@@ -101,6 +101,7 @@ variable 变量
 
 tend 照顾
 intend 想要
+extend vt. 延伸；扩大；推广；伸出；给予；使竭尽全力；对…估价;vi. 延伸；扩大；伸展；使疏开
 
 present 提出；介绍；赠送vi；现在；礼物n
 represent 代表；再赠送vt；提出异议vi；
@@ -122,6 +123,7 @@ implement 实施；执行；使生效vt；工具；手段n
 
 allow 允许；vi;vt
 allocate 分配vi;vt
+collect vt. 收集；募捐;vi. 收集；聚集；募捐;adv. 由收件人付款地;adj. 由收件人付款的
 
 provide vt. 提供；规定；准备；装备vi. 规定；抚养；作准备
 private adj. 私人的；私有的；私下的
@@ -130,6 +132,13 @@ prevent vt. 预防，防止；阻止vi. 妨碍，阻止
 parent n. 父亲（或母亲）；父母亲；根源
 
 otherwise adv. 否则；另外；在其他方面 adj. 另外的；其他方面的
+whether conj. 是否；不论;pron. 两个中的哪一个
+whenever conj. 每当；无论何时;adv. 不论何时；随便什么时候
+
+however adv. 无论如何；不管怎样;conj. 然而；可是
+yet adv. 还；但是；已经;conj. 但是；然而
+
+i.e. adv. 也就是;abbr. （拉丁）即（id est）
 
 supply n. 供给，补给；供应品；vt. 供给，提供；补充；vi. 供给；替代
 
@@ -137,6 +146,7 @@ supply n. 供给，补给；供应品；vt. 供给，提供；补充；vi. 供�
 A temporary error occurred on an authoritative name server.  Try again later.
 暂时的错误发生，在一个有命令的名字服务上，稍后再试。
 does not suffice 不满足
+
 a deep copy is required 必须进行深拷贝。
 probably obtained via a call to inet_addr(3)
 很可能 获得 通过 一个 调用 inet_addr

@@ -141,6 +141,13 @@ yet adv. 还；但是；已经;conj. 但是；然而
 i.e. adv. 也就是;abbr. （拉丁）即（id est）
 
 supply n. 供给，补给；供应品；vt. 供给，提供；补充；vi. 供给；替代
+converse adj. 相反的，逆向的；颠倒的;vi. 交谈，谈话；认识;n. 逆行，逆向；倒；相反的事物
+convert vt. 使转变；转换…；使…改变信仰;;vi. 转变，变换；皈依；改变信仰;n. 皈依者；改变宗教信仰者
+
+immediately adv. 立即，立刻；直接地;conj. 一…就
+delay vi. 延期；耽搁;vt. 延期；耽搁;n. 延期；耽搁；被耽搁或推迟的时间
+
+decreasing importance 递减的价值
 
 
 A temporary error occurred on an authoritative name server.  Try again later.

@@ -510,6 +510,8 @@ shallow copy 浅层拷贝，即复制地址
 deep copy 深层拷贝，即复制内容
 re-entrant 可重入的
 dual stacks 双栈
+facility 设施
+log message 日志消息
 
 ===============================
 翻译：

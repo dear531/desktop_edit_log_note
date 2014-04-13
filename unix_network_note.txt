@@ -277,6 +277,8 @@ int getaddrinfo(const char *node, const char *service, const struct addrinfo *hi
 1.设置：hints->ai_flags |= AI_NUMERICHOST;对应域名设置必须为ip地址：node = "220.181.111.85"，防止任何类型地址到地址的映射;
 可以用inet_pton函数检查输入字符串是ipv4还是ipv6格式：
 inet_pton(AF_INET6, ipv4, &dest)和inet_pton(AF_INET, ipv6, &dest)时均会出错，正确时则能正确转换，这个技巧不但能用于区分ipv4和ipv6,也可用于对ipv4和ipv6字符串本身正确性的检查，如果格式错误，则返回。
+/***************/
+标准库文件读写，对于同一个文件，即需要读，也需要写，则分别打开两个文件指针，一个只读，一个只写。
 ===============================
 主进程多进程fork的形式，接受打开产生的网络套接字描述符，只要及时关闭，就能及时清理资源，并能接受新连接。即主程序接受新连接后，让子进程处理对应网络连接，而主进程关闭子进程已经连接的文件描述符。
 事实上，listen函数文件描述符指定的总数，没有精确的定义。posix也未定义。
@@ -512,7 +514,11 @@ re-entrant 可重入的
 dual stacks 双栈
 facility 设施
 log message 日志消息
-
+scatter read 分散读
+gather write 集中写
+control information 控制信息，也就是辅助数据
+ancillary data object 辅助数据对象
+event filter 时间过滤器
 ===============================
 翻译：
 segment 分节

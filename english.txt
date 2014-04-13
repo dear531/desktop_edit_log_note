@@ -82,6 +82,7 @@ corresponding message string 相应的消息字符
 for backward compatibility 为了向后兼容
 table of contents 目录，内容列表
 several reasons 数个推荐
+further details 进一步的详细信息
 
 indicate 表明；指出
 instead 代替
@@ -132,6 +133,7 @@ prevent vt. 预防，防止；阻止vi. 妨碍，阻止
 parent n. 父亲（或母亲）；父母亲；根源
 
 otherwise adv. 否则；另外；在其他方面 adj. 另外的；其他方面的
+likewise adv. 同样地；也
 whether conj. 是否；不论;pron. 两个中的哪一个
 whenever conj. 每当；无论何时;adv. 不论何时；随便什么时候
 

@@ -149,6 +149,9 @@ convert vt. 使转变；转换…；使…改变信仰;;vi. 转变，变换；�
 immediately adv. 立即，立刻；直接地;conj. 一…就
 delay vi. 延期；耽搁;vt. 延期；耽搁;n. 延期；耽搁；被耽搁或推迟的时间
 
+obsolete adj. 废弃的；老式的;n. 废词；陈腐的人;vt. 淘汰；废弃
+absolute adj. 绝对的；完全的；专制的;n. 绝对；绝对事物
+
 decreasing importance 递减的价值
 
 

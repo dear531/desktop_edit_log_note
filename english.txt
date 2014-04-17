@@ -152,6 +152,9 @@ delay vi. 延期；耽搁;vt. 延期；耽搁;n. 延期；耽搁；被耽搁或�
 obsolete adj. 废弃的；老式的;n. 废词；陈腐的人;vt. 淘汰；废弃
 absolute adj. 绝对的；完全的；专制的;n. 绝对；绝对事物
 
+contain vt. 包含；控制；容纳；牵制（敌军）;vi. 含有；自制
+condition n. 条件；情况；环境；身份;vt. 决定；使适应；使健康；以…为条件
+
 decreasing importance 递减的价值
 
 

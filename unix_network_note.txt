@@ -528,6 +528,7 @@ control information 控制信息，也就是辅助数据
 ancillary data object 辅助数据对象
 event filter 时间过滤器
 user credential 用户凭证
+sort count 不足计数
 ===============================
 翻译：
 segment 分节

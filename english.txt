@@ -155,6 +155,9 @@ absolute adj. 绝对的；完全的；专制的;n. 绝对；绝对事物
 contain vt. 包含；控制；容纳；牵制（敌军）;vi. 含有；自制
 condition n. 条件；情况；环境；身份;vt. 决定；使适应；使健康；以…为条件
 
+positive 正的，积极的
+negative 负的，消极的
+
 decreasing importance 递减的价值
 
 

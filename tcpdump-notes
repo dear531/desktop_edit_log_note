@@ -1,0 +1,82 @@
+/***********/
+-A  以ASCII码方式显示每一个数据包(不会显示数据包中链路层头部信息)
+
+$ sudo tcpdump -A -i eth0
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
+09:51:35.367741 IP 124.205.180.94.38452 > 192.168.1.139.8089: UDP, length 48
+E..L.~..8...|..^.....4...8...i(K	.,..>v../R......#...
+vj.%D.?SvG.....9.V....
+^C09:51:35.368968 IP zly-ThinkPad-Edge-E430.local.15095 > 192.168.1.2.domain: 1666+ PTR? 139.1.168.192.in-addr.arpa. (44)
+E..H..@.@......y....:..5.4xW.............139.1.168.192.in-addr.arpa.....
+
+2 packets captured
+866 packets received by filter
+834 packets dropped by kernel
+
+/***********/
+-C  file-size (nt: 此选项用于配合-w file 选项使用)
+将指定的保存文件名，分开文件存储。
+sudo tcpdump -C 1 -i eth0 -w 1.cap 
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
+
+$ ls -l
+总用量 1108
+-rw-r--r-- 1 root root 1000057  4月 24 09:54 1.cap
+-rw-r--r-- 1 root root  122250  4月 24 09:54 1.cap1
+
+/***********/
+-d 以容易阅读的形式,在标准输出上打印出编排过的包匹配码：
+$ sudo tcpdump -d -i eth0
+(000) ret      #65535
+
+-dd 以C语言的形式打印出包匹配码.
+$ sudo tcpdump -dd -i eth0
+{ 0x6, 0, 0, 0x0000ffff },
+
+-ddd 以十进制数的形式打印出包匹配码
+$ sudo tcpdump -ddd -i eth0
+1
+6 0 0 65535
+/***********/
+-D  打印系统中所有tcpdump可以在其上进行抓包的网络接口
+数字和网卡名字对应，都能用于 -i 的接口指定
+$ sudo tcpdump -D
+1.eth0
+2.eth1
+3.vmnet1
+4.pan1
+5.vmnet8
+6.any (Pseudo-device that captures on all interfaces)
+7.lo
+
+example：
+l$ sudo tcpdump -i 1
+[sudo] password for zly: 
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
+10:05:27.108156 IP zly-ThinkPad-Edge-E430.local.49550 > public1.114dns.com.domain: 61786+ A? daisy.ubuntu.com. (34)
+10:05:27.108763 IP zly-ThinkPad-Edge-E430.local.14382 > public1.114dns.com.domain: 37203+ PTR? 114.114.114.114.in-addr.arpa. (46)
+10:05:27.111859 IP public1.114dns.com.domain > zly-ThinkPad-Edge-E430.local.49550: 61786 2/3/3 A 91.189.92.55, A 91.189.92.57 (178)
+10:05:27.111883 IP public1.114dns.com.domain > zly-ThinkPad-Edge-E430.local.14382: 37203 1/2/4 PTR public1.114dns.com. (192)
+^C^C10:05:27.112104 IP 192.168.1.2.50554 > 255.255.255.255.7437: UDP, length 173
+
+5 packets captured
+73 packets received by filter
+38 packets dropped by kernel
+
+/***********/
+-e  每行的打印输出中将包括数据包的数据链路层头部信息
+带网卡mac头的输出
+$ sudo tcpdump -e -i eth0
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
+10:05:10.192343 b8:70:f4:db:c3:db (oui Unknown) > Broadcast, ethertype ARP (0x0806), length 60: Request who-has 192.168.1.100 tell 192.168.1.109, length 46
+10:05:10.205796 00:1e:ec:8e:1a:f4 (oui Unknown) > 1c:fa:68:14:56:cc (oui Unknown), ethertype IPv4 (0x0800), length 86: zly-ThinkPad-Edge-E430.local.38242 > gjjline.bta.net.cn.domain: 51687+ PTR? 100.1.168.192.in-addr.arpa. (44)
+10:05:10.205823 00:1e:ec:8e:1a:f4 (oui Unknown) > 1c:fa:68:14:56:cc (oui Unknown), ethertype IPv4 (0x0800), length 86: zly-ThinkPad-Edge-E430.local.38242 > 192.168.1.2.domain: 51687+ PTR? 100.1.168.192.in-addr.arpa. (44)
+
+/***********/
+
+
+
+

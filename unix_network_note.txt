@@ -1,4 +1,9 @@
 ===============================
+setsockopt和getsockopt对ip层和对socket层宏的选项设置：man 7 ip、man 7 socket
+epoll函数相关流程设置：man 7 epoll
+ioctl函数相关对宏设置：man 7 netdevice
+man 2 socket函数时，协议宏后其对应的man 7 对应选项提供了很多sokcet的选项设置
+===============================
 对不明白的程序代码进行了这样的标注，以后有机会研究的时候好找，做标记
 /* understood */
 ===============================

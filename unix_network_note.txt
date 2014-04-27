@@ -534,6 +534,14 @@ ancillary data object 辅助数据对象
 event filter 时间过滤器
 user credential 用户凭证
 sort count 不足计数
+broadcasting 广播
+multicasting 多播
+unicasting 单播
+anycasting 任播
+resource discovery 资源发现
+DHCP dynamic resolution protocol 地址解析协议
+NTP network time protocol 网络时间协议
+taking no stand 未作规定
 ===============================
 翻译：
 segment 分节
@@ -624,6 +632,7 @@ maximum burst size 最大猝发大小
 current flight size 当前飞行大小
 maximum fragment size 最大片段大小
 in flight 在飞行中
+
 ===============================
 规则：
 只要一个unix函数中发生了错误，全局变量errno就被设置一个指明该错误的正值，函数本身则通常返回-1

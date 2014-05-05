@@ -592,6 +592,7 @@ exponential backoff 指数回退
 retransmission ambiguty problem 重传二义性问题
 expendited data 经加速数据
 urgent mode 紧急模式
+lightweight proccess 轻权进程
 ===============================
 翻译：
 segment 分节

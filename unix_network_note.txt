@@ -314,6 +314,11 @@ send(fd, "1", sizeof("1"), MSG_OOB);
 setsockopt时序：
 用recvmsg函数获得upd连接接口地址时：在bind之后设置IP_PKTINFO为enable或是在socket之后都是可以的，这两种设置都能得到正确结果，这是在服务器上的设置。
 在设置地址重用时的设置，SO_REUSEADDR，在socket之后，在bind之前设置，这样能保障在设置之前，允许地址重用生效。
+/***************/
+多线程
+int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine) (void *), void *arg);
+其中返回线程id的变量thread必须填写，否则将导致段错误。
+再有线程一定要包含函数自身的头文件，如若不然，在32位系统上不会出问题，在64位系统上，当调用分离函数时，会发生段错误，包含头文件正常，不会有问题。
 ===============================
 主进程多进程fork的形式，接受打开产生的网络套接字描述符，只要及时关闭，就能及时清理资源，并能接受新连接。即主程序接受新连接后，让子进程处理对应网络连接，而主进程关闭子进程已经连接的文件描述符。
 事实上，listen函数文件描述符指定的总数，没有精确的定义。posix也未定义。
@@ -594,6 +599,8 @@ expendited data 经加速数据
 urgent mode 紧急模式
 joinable 可汇合的
 detached 脱离的
+concurrent programming 并发编程
+parallel programming 并行编程
 ===============================
 翻译：
 segment 分节

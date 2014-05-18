@@ -603,6 +603,8 @@ joinable 可汇合的
 detached 脱离的
 concurrent programming 并发编程
 parallel programming 并行编程
+mutual exclusion 互斥锁
+critical region 临界区
 ===============================
 翻译：
 segment 分节

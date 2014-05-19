@@ -605,6 +605,10 @@ concurrent programming 并发编程
 parallel programming 并行编程
 mutual exclusion 互斥锁
 critical region 临界区
+persistent connection 持续连接
+wait channel 等待通道
+thundering herd 惊群
+collision 冲突
 ===============================
 翻译：
 segment 分节

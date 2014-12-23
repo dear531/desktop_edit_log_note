@@ -1,3 +1,4 @@
+volume 1 (卷一)
 ===============================
 setsockopt和getsockopt对ip层和对socket层宏的选项设置：man 7 ip、man 7 socket
 epoll函数相关流程设置：man 7 epoll
@@ -783,13 +784,25 @@ fda
 注意：for循环当中，如果用break语句结束循环，最后的计数器i++是不执行的；
 如果用continue是执行的。
 
+===============================
+volume 2 (卷二)
 
+IPC 进程间通信 interprocess communication
+RPC remote procedure call 远程过程调用
 
-
-
-
-
-
-
-
-
+messge passing 消息传递
+synchronization 同步
+named pipe 有名管道
+messge queue 消息队列
+related 亲缘关系
+recode locking 记录上锁
+semaphore 信号量
+share memory 共享内存
+mutex 互斥锁
+condition variable 条件变量
+read-write lock 读写锁
+persistence 持续性
+process-persistence 随进程持续的
+kernel-persistence 随内核持续的
+filesystem-persistence 随文件系统持续的
+identifier 标识符

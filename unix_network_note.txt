@@ -806,3 +806,6 @@ process-persistence 随进程持续的
 kernel-persistence 随内核持续的
 filesystem-persistence 随文件系统持续的
 identifier 标识符
+name space 名字空间
+wrapper function 包裹函数
+

@@ -789,6 +789,11 @@ volume 2 (卷二)
 
 IPC 进程间通信 interprocess communication
 RPC remote procedure call 远程过程调用
+ISO 国际标准化组织
+IEC 国际电工委员会
+API system application program interface
+OSF 开放软件基金会
+CDE common Desktop Enviroment 公共桌面环境
 
 messge passing 消息传递
 synchronization 同步
@@ -808,4 +813,8 @@ filesystem-persistence 随文件系统持续的
 identifier 标识符
 name space 名字空间
 wrapper function 包裹函数
+rationale and notes 原理与注释
+unix 95 : spec 1170 -- 系统接口数926个，头文件70个，命令174个
+X/Open Single unix specification X/Open 单一unix规范
+unix 98 接口1434 个
 

@@ -817,4 +817,5 @@ rationale and notes 原理与注释
 unix 95 : spec 1170 -- 系统接口数926个，头文件70个，命令174个
 X/Open Single unix specification X/Open 单一unix规范
 unix 98 接口1434 个
-
+a standard way of being nonstandard 造成不标准的标准方式
+file mode creation mask 文件模式创建掩码 

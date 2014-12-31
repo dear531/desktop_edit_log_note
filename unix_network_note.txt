@@ -819,3 +819,5 @@ X/Open Single unix specification X/Open 单一unix规范
 unix 98 接口1434 个
 a standard way of being nonstandard 造成不标准的标准方式
 file mode creation mask 文件模式创建掩码 
+first in, first out 先进先出
+named pipe 有名管道

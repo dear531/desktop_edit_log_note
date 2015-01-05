@@ -829,3 +829,4 @@ byte stream 字节流
 pathname variable 路径名变量
 polling 轮询
 asynchonous event notification 异步事件通知 
+async-signal-safe 异步信号安全

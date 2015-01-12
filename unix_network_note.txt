@@ -831,3 +831,4 @@ polling 轮询
 asynchonous event notification 异步事件通知 
 async-signal-safe 异步信号安全
 realtime behavior 实时行为
+multiplex 复用

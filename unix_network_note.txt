@@ -835,3 +835,9 @@ multiplex 复用
 segment 节
 mutual exclusion 相互排斥
 critical region 临界
+shared data 共享数据
+cooperation 协作性
+producer-consumer 生产者－消费者
+bounded buffer 有界缓冲区
+implicit 隐式的
+explicit 显示的

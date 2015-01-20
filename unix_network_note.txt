@@ -841,3 +841,6 @@ producer-consumer 生产者－消费者
 bounded buffer 有界缓冲区
 implicit 隐式的
 explicit 显示的
+contend 竞争
+absolute time 绝对时间
+time delta 时间差

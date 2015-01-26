@@ -844,3 +844,4 @@ explicit 显示的
 contend 竞争
 absolute time 绝对时间
 time delta 时间差
+shared-exclusive 共享独占

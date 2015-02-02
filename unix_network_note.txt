@@ -848,3 +848,8 @@ shared-exclusive 共享独占
 atomic oparetion 原子操作
 nondeterministic 不确定性
 granularity 粒度
+mandatory locking 强制锁
+starvation 饥饿
+post 挂出
+counting semaphore 计数信号量
+memory-based 基于内存的

@@ -855,3 +855,5 @@ counting semaphore 计数信号量
 memory-based 基于内存的
 double buffering 双缓冲
 streaming 鱼贯模式 
+set of counting semaphores 计数信号量集
+semaphore identifier 信号量标识符

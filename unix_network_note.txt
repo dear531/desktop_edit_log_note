@@ -795,6 +795,7 @@ API system application program interface
 OSF 开放软件基金会
 CDE common Desktop Enviroment 公共桌面环境
 CR/LF 回车加换行 双字符序列
+LBA lower bounary address 低边界地址
 
 messge passing 消息传递
 synchronization 同步
